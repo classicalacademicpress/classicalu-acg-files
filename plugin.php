@@ -14,7 +14,10 @@ declare(strict_types=1);
 $file = plugin_basename(__FILE__);
 
 add_filter("plugin_action_links_" . $file, function (array $actions): array {
-    $url = "https://github.com/classicalacademicpress/classicalu-acg-files";
+    $url =
+        "https://github.com" .
+        "/classicalacademicpress/classicalu-acg-files" .
+        "#classicalu-acg-files";
 
     $links = ["<a href=\"{$url}\" target=\"_blank\">View Documentation</a>"];
 
