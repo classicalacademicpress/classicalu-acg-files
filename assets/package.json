@@ -1,0 +1,19 @@
+{
+  "license": "UNLICENSED",
+  "scripts": {
+    "elmW": "elm-live src/Main.elm --no-server -- --output=dist/elm.js --debug",
+    "elmB": "elm make src/Main.elm --output=dist/elm.js --optimize",
+    "jsW": "chokidar js/main.js -c \"uglifyjs js/main.js -cmo dist/main.js\"",
+    "jsB": "uglifyjs js/main.js -cmo dist/main.js",
+    "start": "yarn run elmW & yarn run jsW",
+    "build": "yarn run elmB && yarn run jsB",
+    "postinstall": "elm-tooling install"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^2.1.0",
+    "elm-live": "^4.0.2",
+    "elm-tooling": "^1.3.0",
+    "eslint": "^7.21.0",
+    "uglify-js": "^3.13.0"
+  }
+}

@@ -1,0 +1,65 @@
+.acg-file-container {
+  max-width: none !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.acg-file-frame-container {
+  background: #fff;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.acg-file-frame {
+  -moz-transform-origin: top left;
+  -ms-transform-origin: top left;
+  -o-transform-origin: top left;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+}
+
+.acg-file-frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.acg-file-controls {
+  background-color: rgba(0, 0, 0, 0.2);
+  bottom: 0;
+  box-sizing: border-box;
+  left: 0;
+  padding: 20px;
+  position: absolute;
+  text-align: right;
+  width: 100%;
+  z-index: 2;
+}
+
+.acg-file-button {
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  border: 0;
+  box-shadow: 0px 1px 1px rgb(136, 136, 136);
+  font-size: 20px;
+  height: 50px;
+  line-height: 20px;
+  margin-right: 10px;
+  padding: 4px;
+  width: 50px;
+}
+
+.acg-file-button:active {
+  box-shadow: inset 0px 1px 1px rgb(136, 136, 136);
+}
+
+.acg-file-button:focus {
+  outline: none;
+}
+
+.acg-file-button:hover {
+  background-color: rgb(238, 238, 238);
+}
