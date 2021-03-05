@@ -1,7 +1,44 @@
 .acg-file-container {
+  background: rgba(146, 164, 183, 0.05);
   max-width: none !important;
   overflow: hidden;
   position: relative;
+  padding: 16px 15px;
+  border-radius: 4px;
+}
+
+.acg-file-title {
+  color: #939597;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 500;
+  width: 100%;
+}
+
+.acg-file-title:before {
+  border-bottom: 9px solid transparent;
+  border-left: 9px solid #939597;
+  border-top: 9px solid transparent;
+  content: "";
+  display: inline-block;
+  line-height: 1em;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.acg-file-title:hover:before {
+  border-left-color: #122b46;
+}
+
+.acg-file-title.active:before {
+  border-top: 9px solid #122b46;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+}
+
+.acg-file-title:hover,
+.acg-file-title.active {
+  color: #122b46;
 }
 
 .acg-file-frame-container {

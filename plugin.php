@@ -25,7 +25,7 @@ add_filter("plugin_action_links_" . $file, function (array $actions): array {
 });
 
 add_shortcode("acg_file", function (array $atts): string {
-    if (!empty($atts["src"])) {
+    if (!empty($atts["src"] && !empty($atts["title"]))) {
         $css = plugins_url("assets/css/main.css", __FILE__);
         $elm = plugins_url("assets/dist/elm.js", __FILE__);
         $js = plugins_url("assets/dist/main.js", __FILE__);
@@ -38,6 +38,7 @@ add_shortcode("acg_file", function (array $atts): string {
             "height" => (int) $atts["height"] ?: 600,
             "width" => (int) $atts["width"] ?: 800,
             "src" => (string) $atts["src"],
+            "title" => (string) $atts["title"],
         ];
 
         ob_start();
@@ -48,6 +49,8 @@ add_shortcode("acg_file", function (array $atts): string {
 
         return ob_get_clean();
     } else {
-        return "Please enter a <pre>src</pre> attribute.";
+        ob_start();
+        require implode("/", [__DIR__, "views", "acg-file-error.php"]);
+        return ob_get_clean();
     }
 });

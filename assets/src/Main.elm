@@ -27,7 +27,8 @@ main =
 
 
 type Model
-    = Waiting Data
+    = Closed Data
+    | Open Data
     | ZoomingIn Data
     | ZoomingOut Data
     | Error Json.Decode.Error
@@ -38,6 +39,7 @@ type alias Data =
     , width : Float
     , scale : Float
     , src : String
+    , title : String
     }
 
 
@@ -45,15 +47,16 @@ init : Json.Decode.Value -> ( Model, Cmd Msg )
 init flags =
     let
         flagsDecoder =
-            Json.Decode.map4 Data
+            Json.Decode.map5 Data
                 (Json.Decode.field "height" Json.Decode.float)
                 (Json.Decode.field "width" Json.Decode.float)
                 (Json.Decode.succeed 1.0)
                 (Json.Decode.field "src" Json.Decode.string)
+                (Json.Decode.field "title" Json.Decode.string)
     in
     case Json.Decode.decodeValue flagsDecoder flags of
         Ok data ->
-            ( Waiting data, Cmd.none )
+            ( Closed data, Cmd.none )
 
         Err err ->
             ( Error err, Cmd.none )
@@ -64,7 +67,9 @@ init flags =
 
 
 type Msg
-    = ClickZoomIn
+    = ClickOpen
+    | ClickClose
+    | ClickZoomIn
     | ClickZoomOut
     | ZoomIn
     | ZoomOut
@@ -74,8 +79,19 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case model of
-        Waiting data ->
+        Closed data ->
             case msg of
+                ClickOpen ->
+                    ( Open data, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
+
+        Open data ->
+            case msg of
+                ClickClose ->
+                    ( Closed data, Cmd.none )
+
                 ClickZoomIn ->
                     ( ZoomingIn data, Cmd.none )
 
@@ -97,7 +113,7 @@ update msg model =
                         ( model, Cmd.none )
 
                 CancelZoom ->
-                    ( Waiting data, Cmd.none )
+                    ( Open data, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -114,7 +130,7 @@ update msg model =
                         ( model, Cmd.none )
 
                 CancelZoom ->
-                    ( Waiting data, Cmd.none )
+                    ( Open data, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -153,7 +169,10 @@ subscriptions model =
 view : Model -> Html.Html Msg
 view model =
     case model of
-        Waiting data ->
+        Closed data ->
+            viewClosed data
+
+        Open data ->
             viewData data
 
         ZoomingIn data ->
@@ -169,6 +188,20 @@ view model =
                 ]
 
 
+viewClosed : Data -> Html.Html Msg
+viewClosed data =
+    Html.div
+        [ Html.Attributes.class "acg-file-container"
+        , Html.Attributes.style "width" <| String.fromFloat data.width ++ "px"
+        ]
+        [ Html.span
+            [ Html.Attributes.class "acg-file-title"
+            , Html.Events.onClick ClickOpen
+            ]
+            [ Html.text data.title ]
+        ]
+
+
 viewData : Data -> Html.Html Msg
 viewData data =
     Html.div
@@ -176,7 +209,12 @@ viewData data =
         , Html.Attributes.style "height" <| String.fromFloat data.height ++ "px"
         , Html.Attributes.style "width" <| String.fromFloat data.width ++ "px"
         ]
-        [ Html.div
+        [ Html.span
+            [ Html.Attributes.class "acg-file-title active"
+            , Html.Events.onClick ClickClose
+            ]
+            [ Html.text data.title ]
+        , Html.div
             [ Html.Attributes.class "acg-file-frame-container"
             , Html.Attributes.style "height" <|
                 String.fromFloat data.height
