@@ -12,13 +12,17 @@ A plugin to embed Ambrose curriculum files.
 
 Embeds a zoomable ACG file within a page.
 
-`[acg_file src="..." height="..." width="..."]`
+`[acg_file src="..." title="..." height="..." width="..."]`
 
 ##### Params
 
 **src**
 
 (*Required*) The link to the embedable ACG file; the link is generated from Google Docs using [Publish to the web](https://support.google.com/a/users/answer/9308870?hl=en)
+
+**title**
+
+(*Required*) The title of the embedable ACG file
 
 **height**
 
