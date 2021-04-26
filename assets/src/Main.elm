@@ -219,9 +219,7 @@ viewData data =
             , Html.Attributes.style "height" <|
                 String.fromFloat data.height
                     ++ "px"
-            , Html.Attributes.style "width" <|
-                String.fromFloat data.width
-                    ++ "px"
+            , Html.Attributes.style "width" "100%"
             ]
             [ Html.iframe
                 ([ Html.Attributes.attribute "frameBorder" "0"
@@ -255,12 +253,6 @@ viewData data =
 transforms : Data -> List (Html.Attribute Msg)
 transforms data =
     let
-        height =
-            String.fromFloat <| data.height / data.scale
-
-        width =
-            String.fromFloat <| data.width / data.scale
-
         scale =
             String.fromFloat data.scale
 
@@ -271,7 +263,7 @@ transforms data =
     , Html.Attributes.style "-ms-transform" transform
     , Html.Attributes.style "-o-transform" transform
     , Html.Attributes.style "-webkit-transform" transform
-    , Html.Attributes.style "height" <| height ++ "px"
+    , Html.Attributes.style "height" "20000px"
     , Html.Attributes.style "transform" <| transform
-    , Html.Attributes.style "width" <| width ++ "px"
+    , Html.Attributes.style "width" "100%"
     ]
