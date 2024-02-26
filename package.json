@@ -1,12 +1,12 @@
 {
   "license": "UNLICENSED",
   "scripts": {
-    "assetsW": "cd assets && yarn start",
-    "assetsB": "cd assets && yarn run build",
-    "prettier": "prettier --write plugin.php",
-    "prettierW": "chokidar plugin.php -c \"yarn run prettier\"",
-    "start": "yarn run prettierW & yarn run assetsW",
-    "build": "yarn run prettier & yarn run assetsB && ./zip-plugin.sh"
+    "assetsW": "cd assets && npm start && cd -",
+    "assetsB": "cd assets && npm run build && cd -",
+    "prettierB": "npx prettier --write plugin.php",
+    "prettierW": "chokidar plugin.php -c \"npx run prettier\"",
+    "start": "npm run prettierW && npm run assetsW",
+    "build": "npm run prettierB && npm run assetsB && ./zip-plugin.sh"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.16.1",

@@ -5,8 +5,8 @@
     "elmB": "elm make src/Main.elm --output=dist/elm.js --optimize",
     "jsW": "chokidar js/main.js -c \"uglifyjs js/main.js -cmo dist/main.js\"",
     "jsB": "uglifyjs js/main.js -cmo dist/main.js",
-    "start": "yarn run elmW & yarn run jsW",
-    "build": "yarn run elmB && yarn run jsB",
+    "start": "npm run elmW & npm run jsW",
+    "build": "npm run elmB && npm run jsB",
     "postinstall": "elm-tooling install"
   },
   "devDependencies": {
