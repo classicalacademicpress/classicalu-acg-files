@@ -221,19 +221,25 @@ viewData data =
                     ++ "px"
             , Html.Attributes.style "width" "100%"
             ]
-            [ Html.iframe
-                ([ Html.Attributes.attribute "frameBorder" "0"
-                 , Html.Attributes.class "acg-file-frame"
-                 , Html.Attributes.src data.src
-                 ]
-                    ++ transforms data
-                )
-                []
-            , Html.div
-                (Html.Attributes.class "acg-file-frame-overlay"
-                    :: transforms data
-                )
-                []
+            [ Html.div
+                [ Html.Attributes.style "width" <|
+                    (String.fromFloat <| data.width / data.scale)
+                        ++ "px"
+                ]
+                [ Html.iframe
+                    ([ Html.Attributes.attribute "frameBorder" "0"
+                     , Html.Attributes.class "acg-file-frame"
+                     , Html.Attributes.src data.src
+                     ]
+                        ++ transforms data
+                    )
+                    []
+                , Html.div
+                    (Html.Attributes.class "acg-file-frame-overlay"
+                        :: transforms data
+                    )
+                    []
+                ]
             ]
         , Html.div [ Html.Attributes.class "acg-file-controls" ]
             [ Html.button
